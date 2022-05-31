@@ -132,14 +132,14 @@ namespace PowerLine
             /// </summary>
             /// <param name="reason">Список проблем</param>
             /// <returns>Готов ли автомобиль к поездке.</returns>
-            public virtual bool CheckReady(out string[] reason)
+            public virtual bool CheckTripReady(out string[] reason)
             {
                 List<string> errors = new List<string>();
                 Diagnose(errors);
                 reason = errors.Any()
                     ? errors.ToArray()
                     : null;
-                return errors.Any();
+                return !errors.Any();
             }
         }
 
@@ -172,8 +172,8 @@ namespace PowerLine
             {
                 base.Diagnose(errors);
                 if (PassengerCount > PassengerCapacity)
-                    errors.Add($"Автомобиль перегружен. Количество пассажиров в салоне ({PassengerCount}) "
-                        + $"превышает норму ({PassengerCapacity}).");
+                    errors.Add($"Автомобиль перегружен. Количество пассажиров в салоне ({PassengerCount} чел) "
+                        + $"превышает норму ({PassengerCapacity} чел).");
             }
         }
 
